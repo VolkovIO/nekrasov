@@ -1,24 +1,27 @@
 package com.example.nekrasov.service;
 
+import com.example.nekrasov.dto.BookDTO;
 import com.example.nekrasov.entity.Book;
 import com.example.nekrasov.excepsion.NotFoundException;
+import com.example.nekrasov.factory.BookDTOFactory;
 import com.example.nekrasov.repository.BookRepository;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Data
 @Service
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final BookDTOFactory bookDTOFactory;
 
-    public BookServiceImpl(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     @Override
-    public List<Book> listBook() {
-        return bookRepository.findAll();
+    public List<BookDTO> listBook() {
+        List<Book> all = bookRepository.findAll();
+        return bookDTOFactory.createBookDTOList(all);
     }
 
     @Override

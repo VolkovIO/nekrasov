@@ -27,7 +27,11 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "books", cascade = CascadeType.ALL)
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "author_book",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Author> authors = new ArrayList<>();
 
 }

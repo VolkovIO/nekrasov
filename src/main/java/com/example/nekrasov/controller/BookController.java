@@ -1,5 +1,6 @@
 package com.example.nekrasov.controller;
 
+import com.example.nekrasov.dto.BookDTO;
 import com.example.nekrasov.entity.Book;
 import com.example.nekrasov.service.BookService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> fetchBooks(){
+    public List<BookDTO> fetchBooks(){
         return bookService.listBook();
     }
 

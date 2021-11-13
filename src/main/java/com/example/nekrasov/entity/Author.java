@@ -22,9 +22,6 @@ public class Author {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "author_book",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
 }
