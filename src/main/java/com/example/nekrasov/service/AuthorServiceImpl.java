@@ -22,8 +22,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<AuthorDTO> listAuthor() {
-        List<Author> all = authorRepository.findAll();
-        return authorDTOFactory.createAuthorDTOList(all);
+        List<Author> authors = authorRepository.findAll();
+        return authorDTOFactory.createAuthorDTOList(authors);
     }
 
     @Override

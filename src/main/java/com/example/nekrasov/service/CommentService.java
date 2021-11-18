@@ -1,13 +1,13 @@
 package com.example.nekrasov.service;
 
-import com.example.nekrasov.entity.Comment;
+import com.example.nekrasov.dto.CommentDTO;
 
 import java.util.List;
 
 public interface CommentService {
-    List<Comment> listComment();
-    Comment getComment(Long id);
-    Comment addComment(Comment comment);
-    Comment replaceComment(Comment comment, Long id);
+    List<CommentDTO> listComment();
+    CommentDTO getComment(Long id);
+    CommentDTO addComment(CommentDTO comment);
+    CommentDTO replaceComment(CommentDTO comment, Long id);
     void remove(Long id);
 }

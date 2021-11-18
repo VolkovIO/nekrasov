@@ -16,17 +16,16 @@ public class AuthorDTOFactory {
 
     public AuthorDTO createAuthorDTO(Author entity) {
         int sizeOfWrittenBooks = entity.getBooks().size();
-        List<String> listBooksName = sizeOfWrittenBooks == 0
-                ? new ArrayList<>()
+        List<String> listNameBooks = sizeOfWrittenBooks == 0
+                ? new ArrayList<>(1)
                 : entity.getBooks().stream()
                     .map(Book::getName)
                     .collect(Collectors.toList());
 
-
         return AuthorDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .books(listBooksName)
+                .books(listNameBooks)
                 .build();
     }
 

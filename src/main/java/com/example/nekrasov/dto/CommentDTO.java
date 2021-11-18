@@ -8,6 +8,5 @@ import lombok.Data;
 public class CommentDTO {
     private Long id;
     private String comment;
-//    private List<>
-
+    private String book;
 }

@@ -1,9 +1,12 @@
 package com.example.nekrasov.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,12 +18,18 @@ import java.util.List;
 public class Genre {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Long id;
 
     private String name;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "genre")
-    private List<Book> genreBooks;
+    private List<Book> books = new ArrayList<>();
+
+    public static Genre makeDefault(String genre){
+        return builder()
+                .name(genre)
+                .books(new ArrayList<>(1))
+                .build();
+    }
 }

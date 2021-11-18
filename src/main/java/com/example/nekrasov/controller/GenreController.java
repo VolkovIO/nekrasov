@@ -1,5 +1,6 @@
 package com.example.nekrasov.controller;
 
+import com.example.nekrasov.dto.GenreDTO;
 import com.example.nekrasov.entity.Genre;
 import com.example.nekrasov.service.GenreService;
 import org.springframework.web.bind.annotation.*;
@@ -17,22 +18,22 @@ public class GenreController {
     }
 
     @GetMapping
-    List<Genre> fetchGenres(){
+    List<GenreDTO> fetchGenres(){
         return genreService.listGenre();
     }
 
     @GetMapping("/{id}")
-    Genre fetchGenre(@PathVariable Long id){
+    GenreDTO fetchGenre(@PathVariable Long id){
         return genreService.getGenre(id);
     }
 
     @PostMapping
-    Genre addGenre(@RequestBody Genre genre){
+    GenreDTO addGenre(@RequestParam String genre){
         return genreService.addGenre(genre);
     }
 
     @PutMapping("/{id}")
-    Genre replaceGenre(@RequestBody Genre genre, @PathVariable Long id){
+    GenreDTO replaceGenre(@RequestParam String genre, @PathVariable Long id){
         return genreService.replaceGenre(genre, id);
     }
 

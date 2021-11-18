@@ -16,6 +16,7 @@ public class CommentDTOFactory {
         return CommentDTO.builder()
                 .id(entity.getId())
                 .comment(entity.getComment())
+                .book(entity.getBook().getName())
                 .build();
     }
 

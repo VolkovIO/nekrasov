@@ -1,6 +1,6 @@
 package com.example.nekrasov.controller;
 
-import com.example.nekrasov.entity.Comment;
+import com.example.nekrasov.dto.CommentDTO;
 import com.example.nekrasov.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,22 +17,22 @@ public class CommentController {
     }
 
     @GetMapping
-    List<Comment> fetchComments(){
+    List<CommentDTO> fetchComments(){
         return commentService.listComment();
     }
 
     @GetMapping("/{id}")
-    Comment fetchComment(@PathVariable Long id){
+    CommentDTO fetchComment(@PathVariable Long id){
         return commentService.getComment(id);
     }
 
     @PostMapping
-    Comment addComment(@RequestBody Comment comment){
+    CommentDTO addComment(@RequestBody CommentDTO comment){
         return commentService.addComment(comment);
     }
 
     @PutMapping("/{id}")
-    Comment replaceComment(@RequestBody Comment comment, @PathVariable Long id){
+    CommentDTO replaceComment(@RequestBody CommentDTO comment, @PathVariable Long id){
         return commentService.replaceComment(comment, id);
     }
 
