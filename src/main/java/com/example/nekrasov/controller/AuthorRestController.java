@@ -28,12 +28,12 @@ public class AuthorRestController {
     }
 
     @PostMapping
-    AuthorDTO addAuthor(@RequestBody Author author){
+    AuthorDTO addAuthor(@RequestParam String author){
         return authorService.addAuthor(author);
     }
 
     @PutMapping("/{id}")
-    Author addAuthor(@RequestBody Author author, @PathVariable Long id){
+    AuthorDTO addAuthor(@RequestParam String author, @PathVariable Long id){
         return authorService.replaceAuthor(author, id);
     }
 

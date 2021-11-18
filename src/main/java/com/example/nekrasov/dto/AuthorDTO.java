@@ -11,6 +11,5 @@ import java.util.List;
 public class AuthorDTO {
     private Long id;
     private String name;
-    private List<Book> books;
-
+    private List<String> books;
 }

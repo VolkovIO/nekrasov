@@ -21,7 +21,14 @@ public class Author {
 
     private String name;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+//    @JsonIgnore
+    @ManyToMany(mappedBy = "authors")
     private List<Book> books = new ArrayList<>();
+
+    public static Author makeDefault(String authorName){
+        return builder()
+                .name(authorName)
+                .books(new ArrayList<>(1))
+                .build();
+    }
 }
