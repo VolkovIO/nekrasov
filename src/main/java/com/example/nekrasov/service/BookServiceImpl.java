@@ -43,15 +43,19 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDTO addBook(String name, String genre, String[] authors) {
         Genre genreExist = genreRepository.findByName(genre);
-        if (genreExist == null){
-           genreExist = genreRepository.save(Genre.builder().name(genre).build());
+        if (genreExist == null) {
+            genreExist = genreRepository.save(Genre.builder().name(genre).build());
         }
 
         List<Author> authorList = new ArrayList<>(1);
-        if(authors != null){
+        if (authors != null) {
             for (String authorName : authors) {
-                Author newAuthor = authorRepository.save(Author.makeDefault(authorName));
-                authorList.add(newAuthor);
+                if (authorRepository.existsByName(authorName)) {
+                    authorList.add(authorRepository.findByName(authorName));
+                } else {
+                    Author newAuthor = authorRepository.save(Author.makeDefault(authorName));
+                    authorList.add(newAuthor);
+                }
             }
         }
 
@@ -62,9 +66,9 @@ public class BookServiceImpl implements BookService {
                 .authors(authorList)
                 .build();
 
-         bookRepository.save(book);
+        bookRepository.save(book);
 
-         return bookDTOFactory.createBookDTO(book);
+        return bookDTOFactory.createBookDTO(book);
     }
 
     @Override
@@ -73,17 +77,17 @@ public class BookServiceImpl implements BookService {
         // Ищем или создаем жанр
         String genreName = bookDTO.getGenre();
         Genre genreExist = genreRepository.findByName(genreName);
-        if (genreExist == null){
+        if (genreExist == null) {
             throw new NotFoundException("Жанр " + genreName + " не существует");
 //            genreExist = genreRepository.save(Genre.builder().name(genre).build());
         }
 
         // Ищем или создаем Авторов
         List<Author> authorList = new ArrayList<>(1);
-        if(bookDTO.getAuthors() != null){
+        if (bookDTO.getAuthors() != null) {
             for (String authorName : bookDTO.getAuthors()) {
                 Author authorExist = authorRepository.findByName(authorName);
-                if (authorExist == null){
+                if (authorExist == null) {
                     Author newAuthor = authorRepository.save(Author.makeDefault(authorName));
                     authorList.add(newAuthor);
                 } else {
