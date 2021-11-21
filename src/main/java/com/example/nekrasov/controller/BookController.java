@@ -27,11 +27,14 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDTO addBook(@RequestBody BookDTO bookDTO){
-        return bookService.addBook(bookDTO);
+    public BookDTO addBook(
+            @RequestParam String name,
+            @RequestParam String genre,
+            @RequestParam String[] authors){
+        return bookService.addBook(name, genre, authors);
     }
 
-    @PutMapping()
+    @PutMapping("/{id}")
     public BookDTO replaceBook(@RequestBody BookDTO bookDTO, @PathVariable Long id){
         return bookService.replaceBook(bookDTO, id);
     }
