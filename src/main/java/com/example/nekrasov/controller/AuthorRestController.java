@@ -1,5 +1,6 @@
 package com.example.nekrasov.controller;
 
+import com.example.nekrasov.dto.AuthorDTO;
 import com.example.nekrasov.entity.Author;
 import com.example.nekrasov.service.AuthorService;
 import org.springframework.web.bind.annotation.*;
@@ -17,22 +18,22 @@ public class AuthorRestController {
     }
 
     @GetMapping
-    List<Author> fetchAuthors(){
+    List<AuthorDTO> fetchAuthors(){
         return authorService.listAuthor();
     }
 
     @GetMapping("/{id}")
-    Author fetchAuthor(@PathVariable Long id){
+    AuthorDTO fetchAuthor(@PathVariable Long id){
         return authorService.getAuthor(id);
     }
 
     @PostMapping
-    Author addAuthor(@RequestBody Author author){
+    AuthorDTO addAuthor(@RequestParam String author){
         return authorService.addAuthor(author);
     }
 
     @PutMapping("/{id}")
-    Author addAuthor(@RequestBody Author author, @PathVariable Long id){
+    AuthorDTO addAuthor(@RequestParam String author, @PathVariable Long id){
         return authorService.replaceAuthor(author, id);
     }
 

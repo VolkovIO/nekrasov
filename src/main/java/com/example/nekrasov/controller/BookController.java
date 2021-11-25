@@ -1,6 +1,6 @@
 package com.example.nekrasov.controller;
 
-import com.example.nekrasov.entity.Book;
+import com.example.nekrasov.dto.BookDTO;
 import com.example.nekrasov.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,23 +17,26 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> fetchBooks(){
+    public List<BookDTO> fetchBooks(){
         return bookService.listBook();
     }
 
     @GetMapping("/{id}")
-    public Book fetchBook(@PathVariable Long id){
+    public BookDTO fetchBook(@PathVariable Long id){
         return bookService.getBook(id);
     }
 
     @PostMapping
-    public Book addBook(@RequestBody Book book){
-        return bookService.addBook(book);
+    public BookDTO addBook(
+            @RequestParam String name,
+            @RequestParam String genre,
+            @RequestParam String[] authors){
+        return bookService.addBook(name, genre, authors);
     }
 
-    @PutMapping()
-    public Book replaceBook(@RequestBody Book book, @PathVariable Long id){
-        return bookService.replaceBook(book, id);
+    @PutMapping("/{id}")
+    public BookDTO replaceBook(@RequestBody BookDTO bookDTO, @PathVariable Long id){
+        return bookService.replaceBook(bookDTO, id);
     }
 
     @DeleteMapping("/{id}")

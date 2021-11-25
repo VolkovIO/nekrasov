@@ -22,4 +22,6 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_book")
     private Book book;
+
+
 }

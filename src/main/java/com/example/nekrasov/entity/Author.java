@@ -1,9 +1,11 @@
 package com.example.nekrasov.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +23,13 @@ public class Author {
 
     private String name;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "author_book",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @ManyToMany(mappedBy = "authors")
     private List<Book> books = new ArrayList<>();
+
+    public static Author makeDefault(String authorName){
+        return builder()
+                .name(authorName)
+                .books(new ArrayList<>(1))
+                .build();
+    }
 }
