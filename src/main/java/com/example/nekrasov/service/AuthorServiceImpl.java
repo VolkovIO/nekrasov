@@ -6,27 +6,28 @@ import com.example.nekrasov.excepsion.BadRequestException;
 import com.example.nekrasov.excepsion.NotFoundException;
 import com.example.nekrasov.factory.AuthorDTOFactory;
 import com.example.nekrasov.repository.AuthorRepository;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Data
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
     private final AuthorDTOFactory authorDTOFactory;
 
     @Override
+    @Transactional
     public List<AuthorDTO> listAuthor() {
         List<Author> authors = authorRepository.findAll();
         return authorDTOFactory.createAuthorDTOList(authors);
     }
 
     @Override
+    @Transactional
     public AuthorDTO getAuthor(Long id) {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Автор с идентификатором \"%s\" не найден.", id)));
@@ -34,6 +35,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional
     public AuthorDTO addAuthor(String authorName) {
         if (authorRepository.existsByName(authorName)) {
             throw new BadRequestException("Автор " + authorName + " уже существует.");
@@ -45,6 +47,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional
     public AuthorDTO replaceAuthor(String name, Long id) {
         Author authorForDTO = authorRepository.findById(id)
                 .map(author -> {
@@ -62,6 +65,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         authorRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Автор с идентификатором \"%s\" не найден.", id)));

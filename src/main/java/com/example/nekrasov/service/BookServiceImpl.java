@@ -3,7 +3,6 @@ package com.example.nekrasov.service;
 import com.example.nekrasov.dto.BookDTO;
 import com.example.nekrasov.entity.Author;
 import com.example.nekrasov.entity.Book;
-import com.example.nekrasov.entity.Comment;
 import com.example.nekrasov.entity.Genre;
 import com.example.nekrasov.excepsion.NotFoundException;
 import com.example.nekrasov.factory.BookDTOFactory;
@@ -11,14 +10,15 @@ import com.example.nekrasov.repository.AuthorRepository;
 import com.example.nekrasov.repository.BookRepository;
 import com.example.nekrasov.repository.CommentRepository;
 import com.example.nekrasov.repository.GenreRepository;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
@@ -28,12 +28,14 @@ public class BookServiceImpl implements BookService {
     private final AuthorRepository authorRepository;
 
     @Override
+    @Transactional
     public List<BookDTO> listBook() {
         List<Book> books = bookRepository.findAll();
         return bookDTOFactory.createBookDTOList(books);
     }
 
     @Override
+    @Transactional
     public BookDTO getBook(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Книга с идентификатором \"%s\" не найден.", id)));
@@ -41,13 +43,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public BookDTO addBook(String name, String genre, String[] authors) {
         Genre genreExist = genreRepository.findByName(genre);
         if (genreExist == null) {
             genreExist = genreRepository.save(Genre.builder().name(genre).build());
         }
 
-        List<Author> authorList = new ArrayList<>(1);
+        List<Author> authorList = new ArrayList<>();
         if (authors != null) {
             for (String authorName : authors) {
                 if (authorRepository.existsByName(authorName)) {
@@ -62,7 +65,7 @@ public class BookServiceImpl implements BookService {
         Book book = Book.builder()
                 .name(name)
                 .genre(genreExist)
-                .comments(new ArrayList<Comment>(1)) // пустой список комментрариев
+                .comments(new ArrayList<>()) // пустой список комментрариев
                 .authors(authorList)
                 .build();
 
@@ -72,6 +75,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public BookDTO replaceBook(BookDTO bookDTO, Long id) {
 
         // Ищем или создаем жанр
@@ -83,7 +87,7 @@ public class BookServiceImpl implements BookService {
         }
 
         // Ищем или создаем Авторов
-        List<Author> authorList = new ArrayList<>(1);
+        List<Author> authorList = new ArrayList<>();
         if (bookDTO.getAuthors() != null) {
             for (String authorName : bookDTO.getAuthors()) {
                 Author authorExist = authorRepository.findByName(authorName);
@@ -108,7 +112,7 @@ public class BookServiceImpl implements BookService {
                 .orElseGet(() -> Book.builder()
                         .genre(genreExist)
                         .authors(authorList)
-                        .comments(new ArrayList<Comment>(1))
+                        .comments(new ArrayList<>())
                         .name(bookDTO.getName())
                         .build());
 
@@ -117,6 +121,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         bookRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Книга с идентификатором \"%s\" не найдена.", id)));

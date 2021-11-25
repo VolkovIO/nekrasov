@@ -6,27 +6,28 @@ import com.example.nekrasov.excepsion.BadRequestException;
 import com.example.nekrasov.excepsion.NotFoundException;
 import com.example.nekrasov.factory.GenreDTOFactory;
 import com.example.nekrasov.repository.GenreRepository;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Data
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class GenreServiceImpl implements GenreService {
 
     private final GenreRepository genreRepository;
     private final GenreDTOFactory genreDTOFactory;
 
     @Override
+    @Transactional
     public List<GenreDTO> listGenre() {
         List<Genre> genres = genreRepository.findAll();
         return genreDTOFactory.createGenreDTOList(genres);
     }
 
     @Override
+    @Transactional
     public GenreDTO getGenre(Long id) {
         Genre genre = genreRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Жанр с идентификатором \"%s\" не найден.", id)));
@@ -34,6 +35,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    @Transactional
     public GenreDTO addGenre(String genre) {
         if (genreRepository.existsByName(genre)) {
             throw new BadRequestException("Жанр " + genre + " уже существует.");
@@ -44,6 +46,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    @Transactional
     public GenreDTO replaceGenre(String name, Long id) {
 
         Genre genreForDTO = genreRepository.findById(id)
@@ -61,6 +64,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         genreRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Жанр с идентификатором \"%s\" не найден.", id)));

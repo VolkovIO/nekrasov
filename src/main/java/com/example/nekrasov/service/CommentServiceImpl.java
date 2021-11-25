@@ -8,15 +8,14 @@ import com.example.nekrasov.excepsion.NotFoundException;
 import com.example.nekrasov.factory.CommentDTOFactory;
 import com.example.nekrasov.repository.BookRepository;
 import com.example.nekrasov.repository.CommentRepository;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Data
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
@@ -24,12 +23,14 @@ public class CommentServiceImpl implements CommentService {
     private final BookRepository bookRepository;
 
     @Override
+    @Transactional
     public List<CommentDTO> listComment() {
         List<Comment> all = commentRepository.findAll();
         return commentDTOFactory.createCommentDTOList(all);
     }
 
     @Override
+    @Transactional
     public CommentDTO getComment(Long id) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Комментарий с идентификатором \"%s\" не найден.", id)));
@@ -37,6 +38,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public CommentDTO addComment(CommentDTO commentDTO) {
 
         Book bookByName = bookRepository.findBookByName(commentDTO.getBook());
@@ -54,6 +56,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public CommentDTO replaceComment(CommentDTO commentDTO, Long id) {
 
         Book bookByName = bookRepository.findBookByName(commentDTO.getBook());
@@ -79,6 +82,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         commentRepository.deleteById(id);
     }
