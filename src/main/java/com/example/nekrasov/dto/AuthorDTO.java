@@ -1,6 +1,5 @@
 package com.example.nekrasov.dto;
 
-import com.example.nekrasov.entity.Book;
 import lombok.Builder;
 import lombok.Data;
 
