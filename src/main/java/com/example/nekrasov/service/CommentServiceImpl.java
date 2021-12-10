@@ -40,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentDTO addComment(CommentDTO commentDTO) {
 
         Book bookByName = bookRepository.findBookByName(commentDTO.getBook());
-        if (bookByName == null){
+        if (bookByName == null) {
             throw new BadRequestException("Книги " + commentDTO.getBook() + " не существует");
         }
 
@@ -57,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentDTO replaceComment(CommentDTO commentDTO, Long id) {
 
         Book bookByName = bookRepository.findBookByName(commentDTO.getBook());
-        if (bookByName == null){
+        if (bookByName == null) {
             throw new BadRequestException("Книги " + commentDTO.getBook() + " не существует");
         }
 

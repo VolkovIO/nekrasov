@@ -19,7 +19,7 @@ spring:
     console.settings.trace: false
     spring.h2.console.settings.web-allow-others: false
   datasource:
-#    url: jdbc:h2:file:c://1//library
+    #    url: jdbc:h2:file:c://1//library
     url: jdbc:h2:mem:testdb
     username: sa
     password:

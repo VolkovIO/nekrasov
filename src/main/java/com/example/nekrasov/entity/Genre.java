@@ -26,7 +26,7 @@ public class Genre {
     @OneToMany(mappedBy = "genre")
     private List<Book> books = new ArrayList<>();
 
-    public static Genre makeDefault(String genre){
+    public static Genre makeDefault(String genre) {
         return builder()
                 .name(genre)
                 .books(new ArrayList<>(1))

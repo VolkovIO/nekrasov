@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class BookDTOFactory {
 
-    public BookDTO createBookDTO(Book entity){
+    public BookDTO createBookDTO(Book entity) {
 
         List<String> listAuthors = entity.getAuthors().stream()
                 .map(Author::getName)
@@ -33,7 +33,7 @@ public class BookDTOFactory {
                 .build();
     }
 
-    public List<BookDTO> createBookDTOList(List<Book> entities){
+    public List<BookDTO> createBookDTOList(List<Book> entities) {
         return entities.stream()
                 .map(this::createBookDTO)
                 .collect(Collectors.toList());

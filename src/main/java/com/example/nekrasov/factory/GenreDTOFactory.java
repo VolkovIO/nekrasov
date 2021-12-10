@@ -19,8 +19,8 @@ public class GenreDTOFactory {
         List<String> listNameBooks = sizeOfWrittenBooks == 0
                 ? new ArrayList<>(1)
                 : entity.getBooks().stream()
-                    .map(Book::getName)
-                    .collect(Collectors.toList());
+                .map(Book::getName)
+                .collect(Collectors.toList());
 
         return GenreDTO.builder()
                 .id(entity.getId())

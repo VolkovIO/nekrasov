@@ -17,12 +17,12 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDTO> fetchBooks(){
+    public List<BookDTO> fetchBooks() {
         return bookService.listBook();
     }
 
     @GetMapping("/{id}")
-    public BookDTO fetchBook(@PathVariable Long id){
+    public BookDTO fetchBook(@PathVariable Long id) {
         return bookService.getBook(id);
     }
 
@@ -30,17 +30,17 @@ public class BookController {
     public BookDTO addBook(
             @RequestParam String name,
             @RequestParam String genre,
-            @RequestParam String[] authors){
+            @RequestParam String[] authors) {
         return bookService.addBook(name, genre, authors);
     }
 
     @PutMapping("/{id}")
-    public BookDTO replaceBook(@RequestBody BookDTO bookDTO, @PathVariable Long id){
+    public BookDTO replaceBook(@RequestBody BookDTO bookDTO, @PathVariable Long id) {
         return bookService.replaceBook(bookDTO, id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Long id){
+    public void deleteBook(@PathVariable Long id) {
         bookService.remove(id);
     }
 }

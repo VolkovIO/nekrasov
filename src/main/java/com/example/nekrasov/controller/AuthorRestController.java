@@ -18,27 +18,27 @@ public class AuthorRestController {
     }
 
     @GetMapping
-    List<AuthorDTO> fetchAuthors(){
+    List<AuthorDTO> fetchAuthors() {
         return authorService.listAuthor();
     }
 
     @GetMapping("/{id}")
-    AuthorDTO fetchAuthor(@PathVariable Long id){
+    AuthorDTO fetchAuthor(@PathVariable Long id) {
         return authorService.getAuthor(id);
     }
 
     @PostMapping
-    AuthorDTO addAuthor(@RequestParam String author){
+    AuthorDTO addAuthor(@RequestParam String author) {
         return authorService.addAuthor(author);
     }
 
     @PutMapping("/{id}")
-    AuthorDTO addAuthor(@RequestParam String author, @PathVariable Long id){
+    AuthorDTO addAuthor(@RequestParam String author, @PathVariable Long id) {
         return authorService.replaceAuthor(author, id);
     }
 
     @DeleteMapping("/{id}")
-    void deleteAuthor(@PathVariable Long id){
+    void deleteAuthor(@PathVariable Long id) {
         authorService.remove(id);
     }
 

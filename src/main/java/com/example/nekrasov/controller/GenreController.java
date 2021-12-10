@@ -18,27 +18,27 @@ public class GenreController {
     }
 
     @GetMapping
-    List<GenreDTO> fetchGenres(){
+    List<GenreDTO> fetchGenres() {
         return genreService.listGenre();
     }
 
     @GetMapping("/{id}")
-    GenreDTO fetchGenre(@PathVariable Long id){
+    GenreDTO fetchGenre(@PathVariable Long id) {
         return genreService.getGenre(id);
     }
 
     @PostMapping
-    GenreDTO addGenre(@RequestParam String genre){
+    GenreDTO addGenre(@RequestParam String genre) {
         return genreService.addGenre(genre);
     }
 
     @PutMapping("/{id}")
-    GenreDTO replaceGenre(@RequestParam String genre, @PathVariable Long id){
+    GenreDTO replaceGenre(@RequestParam String genre, @PathVariable Long id) {
         return genreService.replaceGenre(genre, id);
     }
 
     @DeleteMapping("/{id}")
-    void deleteGenre(@PathVariable Long id){
+    void deleteGenre(@PathVariable Long id) {
         genreService.remove(id);
     }
 }

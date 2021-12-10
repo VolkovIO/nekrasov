@@ -12,11 +12,14 @@ import com.example.nekrasov.repository.BookRepository;
 import com.example.nekrasov.repository.CommentRepository;
 import com.example.nekrasov.repository.GenreRepository;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 @Data
 @Service
 public class BookServiceImpl implements BookService {
@@ -40,6 +43,7 @@ public class BookServiceImpl implements BookService {
         return bookDTOFactory.createBookDTO(book);
     }
 
+    @Transactional
     @Override
     public BookDTO addBook(String name, String genre, String[] authors) {
         Genre genreExist = genreRepository.findByName(genre);
@@ -67,10 +71,12 @@ public class BookServiceImpl implements BookService {
                 .build();
 
         bookRepository.save(book);
+        log.info("Save book id: ", book.getId());
 
         return bookDTOFactory.createBookDTO(book);
     }
 
+    @Transactional
     @Override
     public BookDTO replaceBook(BookDTO bookDTO, Long id) {
 

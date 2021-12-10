@@ -26,7 +26,7 @@ public class Author {
     @ManyToMany(mappedBy = "authors")
     private List<Book> books = new ArrayList<>();
 
-    public static Author makeDefault(String authorName){
+    public static Author makeDefault(String authorName) {
         return builder()
                 .name(authorName)
                 .books(new ArrayList<>(1))

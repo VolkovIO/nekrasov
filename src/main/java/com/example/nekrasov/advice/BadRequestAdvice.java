@@ -1,7 +1,6 @@
 package com.example.nekrasov.advice;
 
 import com.example.nekrasov.excepsion.BadRequestException;
-import com.example.nekrasov.excepsion.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,7 +13,7 @@ public class BadRequestAdvice {
     @ResponseBody
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String badRequestHandler(BadRequestException ex){
+    String badRequestHandler(BadRequestException ex) {
         return ex.getMessage();
     }
 }

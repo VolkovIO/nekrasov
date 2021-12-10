@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class CommentDTOFactory {
 
-    public CommentDTO createCommentDTO(Comment entity){
+    public CommentDTO createCommentDTO(Comment entity) {
         return CommentDTO.builder()
                 .id(entity.getId())
                 .comment(entity.getComment())
@@ -20,7 +20,7 @@ public class CommentDTOFactory {
                 .build();
     }
 
-    public List<CommentDTO> createCommentDTOList(List<Comment> entities){
+    public List<CommentDTO> createCommentDTOList(List<Comment> entities) {
         return entities.stream()
                 .map(this::createCommentDTO)
                 .collect(Collectors.toList());

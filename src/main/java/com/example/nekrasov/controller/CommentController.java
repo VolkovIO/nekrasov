@@ -17,27 +17,27 @@ public class CommentController {
     }
 
     @GetMapping
-    List<CommentDTO> fetchComments(){
+    List<CommentDTO> fetchComments() {
         return commentService.listComment();
     }
 
     @GetMapping("/{id}")
-    CommentDTO fetchComment(@PathVariable Long id){
+    CommentDTO fetchComment(@PathVariable Long id) {
         return commentService.getComment(id);
     }
 
     @PostMapping
-    CommentDTO addComment(@RequestBody CommentDTO comment){
+    CommentDTO addComment(@RequestBody CommentDTO comment) {
         return commentService.addComment(comment);
     }
 
     @PutMapping("/{id}")
-    CommentDTO replaceComment(@RequestBody CommentDTO comment, @PathVariable Long id){
+    CommentDTO replaceComment(@RequestBody CommentDTO comment, @PathVariable Long id) {
         return commentService.replaceComment(comment, id);
     }
 
     @DeleteMapping("/{id}")
-    void deleteComment(@PathVariable Long id){
+    void deleteComment(@PathVariable Long id) {
         commentService.remove(id);
     }
 }
