@@ -1,30 +1,34 @@
-#spring:
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
-#
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/library
-#    username: max
-#    password: 1234
-
 spring:
-  h2:
-    console.enabled: true
-    console.path: /h2-console
-    console.settings.trace: false
-    spring.h2.console.settings.web-allow-others: false
-  datasource:
-    #    url: jdbc:h2:file:c://1//library
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driverClassName: org.h2.Driver
   jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
-    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nekrasov
+    username: max
+    password: 1234
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+#spring:
+#  h2:
+#    console.enabled: true
+#    console.path: /h2-console
+#    console.settings.trace: false
+#    spring.h2.console.settings.web-allow-others: false
+#  datasource:
+#    #    url: jdbc:h2:file:c://1//library
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
+#    driverClassName: org.h2.Driver
+#  jpa:
+#    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+#    show-sql: true
+#    defer-datasource-initialization: true
+#    properties.hibernate.format_sql: true
